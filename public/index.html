@@ -4,7 +4,7 @@
   <meta charset="utf8" />
   <meta name="viewport" content="width=device-width" />
 
-  <title>SolidJS Material Web Components</title>
+  <title>SolidJS Web Components</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -21,7 +21,7 @@
 
     #infinite {
       display: flex;
-      width: 350px;
+      width: calc(100vw - 20px);
       height: calc(100vh - 20px);
     }
 
@@ -44,16 +44,37 @@
   </div>
 
   <script>
-    var infiniteWC = document.querySelector('#infinite s-infinite-events');
+    var infiniteWC;
     var offset = 0;
     var limit = 100;
     var filter = '';
     var events = [];
 
+    function formatDate(dateAsNumber) {
+      const date = new Date(parseInt(dateAsNumber));
+
+      return date.toLocaleTimeString(navigator.language, {
+        hour: '2-digit',
+        minute:'2-digit'
+      });
+    }
+
+    infiniteWC = document.querySelector('#infinite s-infinite-events');
+
+    infiniteWC.formatdate = formatDate;
     infiniteWC.loadmore = loadMore;
 
+    infiniteWC.addEventListener('filter', function(e) {
+      if (filter === e.detail.value) return;
+      filter = e.detail.value;
+
+      offset = 0;
+      resetOnFilter();
+      loadMore();
+    });
+
     function groupEventsByDay(events) {
-      // some to-be-refactored code that group events by day
+      // TODO: Refactor this
       var groups = events.reduce((accumulationGroups, event) => {
         var date = new Date(event.start).toUTCString().slice(0, 16);
         if (!accumulationGroups[date]) {
@@ -83,10 +104,11 @@
         .then(responseJSON => {
           var nextEvents = responseJSON.events.map(event => ({
             id: event.id,
-            summary: event.summary,
+            title: event.title,
             start: event.start,
             end: event.end,
-            calendar: event.calendar
+            calendar: event.calendar,
+            count: event.count
           }));
 
           events = [...events, ...nextEvents];
@@ -107,20 +129,6 @@
       infiniteWC.groupedevents = [];
       infiniteWC.hasmore = true;
     }
-
-    var searchInputTimeout;
-    infiniteWC.handlesearchinput = function({ target }) {
-      if (searchInputTimeout) clearTimeout(searchInputTimeout);
-
-      searchInputTimeout = setTimeout(function() {
-        if (filter === target.value) return;
-        filter = target.value;
-
-        offset = 0;
-        resetOnFilter();
-        loadMore();
-      }, 300);
-    };
   </script>
 </body>
 </html>

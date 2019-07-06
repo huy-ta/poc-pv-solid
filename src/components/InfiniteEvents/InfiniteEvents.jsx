@@ -4,19 +4,20 @@ import 'infinite-scroll-wc';
 
 import style from './InfiniteEvents.scss';
 
-const InfiniteEvents = props => {
+const InfiniteEvents = (props, { element: hostElement }) => {
   const [state, setState] = createState({
     inputActive: false
   });
 
-  function formatDate(dateAsNumber) {
-    const date = new Date(parseInt(dateAsNumber));
+  let searchInputTimeout;
+  function handleSearchInput({ target }) {
+    if (searchInputTimeout) clearTimeout(searchInputTimeout);
+    const value = target.value;
 
-    return date.toLocaleTimeString(navigator.language, {
-      hour: '2-digit',
-      minute:'2-digit'
-    });
-  }
+    searchInputTimeout = setTimeout(function() {
+      hostElement.dispatchEvent(new CustomEvent('filter', { detail: { value } }));
+    }, 300);
+  };
 
   return (
     <>
@@ -25,7 +26,7 @@ const InfiniteEvents = props => {
         <header class={(`infinite-events__header ${state.inputActive ? 'input-active' : ''}`)}>
             <h3>Event schedule</h3>
             <button class="material-icons search-button" onClick={() => setState({ inputActive: true })}>search</button>
-            <input class="search-input" onInput={props.handlesearchinput} placeholder="Filter events..."></input>
+            <input class="search-input" onInput={handleSearchInput} placeholder="Filter events..."></input>
         </header>
         <section class="infinite-events__body">
           <infinite-scroll loadmore={props.loadmore} hasmore={props.hasmore} usewindow={false}>
@@ -43,11 +44,10 @@ const InfiniteEvents = props => {
                         <span style={{ backgroundColor: event.calendar.color }}></span>
                       </div>
                       <div class="event-time">
-                        {/* <span>{formatDate(event.start)} - {formatDate(event.end)}</span> */}
-                        <span>{performance.now()}</span>
+                        <span>{props.formatdate(event.start)} - {props.formatdate(event.end)}</span>
                       </div>
                       <div class="event-text">
-                        <span>{event.summary}</span>
+                        <span>{event.title}</span>
                       </div>
                     </div>
                   </>
@@ -67,9 +67,9 @@ const InfiniteEvents = props => {
 
 customElement('s-infinite-events', {
   loadmore: null,
-  handlesearchinput: null,
   isloading: false,
   error: '',
   hasmore: true,
-  groupedevents: []
+  groupedevents: [],
+  formatdate: date => date
 }, InfiniteEvents);

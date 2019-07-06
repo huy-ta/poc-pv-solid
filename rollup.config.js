@@ -3,7 +3,6 @@ import resolve from 'rollup-plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
-import json from 'rollup-plugin-json';
 import { terser } from 'rollup-plugin-terser';
 
 import getEntryPathMap from './scripts/getEntryPathMap';
@@ -23,7 +22,6 @@ export default {
       exclude: 'node_modules/**',
       plugins: [['jsx-dom-expressions', { moduleName: 'solid-js/dom' }]]
     }),
-    json(),
     postcss({
       inject: false,
       use: [['sass', { includePaths: ['node_modules'] }]]
