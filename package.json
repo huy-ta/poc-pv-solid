@@ -12,7 +12,8 @@
   "dependencies": {
     "babel-plugin-jsx-dom-expressions": "^0.10.0",
     "solid-element": "^0.5.1",
-    "solid-js": "^0.8.6"
+    "solid-js": "^0.8.6",
+    "infinite-scroll-wc": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
