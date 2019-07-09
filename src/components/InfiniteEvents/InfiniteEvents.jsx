@@ -29,7 +29,7 @@ const InfiniteEvents = (props, { element: hostElement }) => {
             <input class="search-input" onInput={handleSearchInput} placeholder="Filter events..."></input>
         </header>
         <section class="infinite-events__body">
-          <infinite-scroll loadmore={props.loadmore} hasmore={props.hasmore} usewindow={false}>
+          <infinite-scroll loadmore={(props.loadmore)} hasmore={(props.hasmore)} usewindow={false}>
             <$ each={props.groupedevents}>
             {eventGroup =>
               <>
