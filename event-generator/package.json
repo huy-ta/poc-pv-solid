@@ -1,0 +1,21 @@
+{
+  "name": "event-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "random-color": "^1.0.1",
+    "random-date": "^0.1.1",
+    "random-name": "^0.1.2",
+    "uuid": "^3.3.2"
+  }
+}
