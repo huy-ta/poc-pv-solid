@@ -22,8 +22,10 @@ npm install
 npm run build
 ```
 
-The build results will be in the `public/lib` folder. For now, you'll have to manually copy-paste it into `frontend/components/infinite-events` in `linagora.esn.calendar`.
+The build results will be in the `public/lib` folder. For now, you'll have to manually copy-paste the `s-infinite-events.js` file into `frontend/components/infinite-events` in `linagora.esn.calendar`.
 
 ## Caveats
 
-...to be updated
+- Bundle size: ...to be updated
+- ...to be updated
+
