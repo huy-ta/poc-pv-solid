@@ -13,7 +13,7 @@ export default {
   input: getEntryPathMap({ dir: 'src/components', prefix: 's-' }),
   output: {
     dir: 'public/lib',
-    format: 'cjs'
+    format: 'esm'
   },
   plugins: [
     resolve({ browser: true }),
