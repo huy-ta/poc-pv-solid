@@ -42,6 +42,10 @@ The build results will be in the `public/lib` folder.
 
   - Since we are using AngularJS 1.3.20 which doesn't support `ng-prop-*` and `ng-on-*` for Web Components, we'll have to get the ref to the web component and then manually set its properties and add the event listener accordingly. You can see all of that stuff in the pull request [linagora.esn.calendar!560](https://ci.linagora.com/linagora/lgs/openpaas/linagora.esn.calendar/merge_requests/560).
 
+## Motivation
+
+- You can refer to the original user stories [here](https://ci.linagora.com/linagora/lgs/openpaas/linagora.esn.calendar/issues/1667). TL;DR: I'm rebuilding the frontend part of the planning view to support infinite scroll using Web Components since we don't really want to use AngularJS to build a new feature.
+
 ## Benefits
 
 ### Benefits of using Web Components in general
@@ -55,11 +59,15 @@ The build results will be in the `public/lib` folder.
 - **Minimal bundle size**: The SolidJS core library _and_ `solid-element` weigh about 15.7kB minified, and 6.3kB minified & gzipped. You can see **Startup metrics** in the `js-framework-benchmark` above, which shows that SolidJS loads nearly as fast as VanillaJS (less than 4%).
 - **Easy to use** (If you come from the React world): SolidJS uses JSX and its APIs are quite similar to those of React. In fact you can copy paste some ReactJS code and add some tweaks to make it work in SolidJS.
 
+My opinion is that if we build Web Components using a UI library whose:
+- Performance close to that of VanillaJS;
+- The impact on Startup Metrics is _really_ small;
+- The DX is good (good as in better than the current mainstream UI libraries).
+...then everything is settled. At that point, we would only be limited to the physics of JavaScript and the DOM themselves, and there would be hardly any need to touch those Web Components to improve performance or DX anymore.
+
 ## Caveats
 
-- Bundle size: The SolidJS core library _and_ `solid-element` weigh about 15.7kB minified, and 6.3kB minified & gzipped. The component itself weighs about 6.6kB minified and 2.7kb minified & gzipped.
-- Styling issues:
-  - There are a few more problems regarding using Web Components in a (UI) Design System. For example, how do you build a WC using SolidJS and you need to use a Material Button inside it? This can't be solved unless you also use Web Components to build the Material UI elements.
-  - This won't work with the current theming implmentation. Unless we use CSS Variables for theming, there's basically no way to use theme with Web Components.
+- **Bundle size**: The SolidJS core library _and_ `solid-element` weigh about 15.7kB minified, and 6.3kB minified & gzipped. The component itself weighs about 6.6kB minified and 2.7kb minified & gzipped.
+- **Styling**: There are some problems regarding using Web Components in a (UI) Design System. For example, how do you build a WC using SolidJS and you need to use a Material Button inside it? This can't be solved unless you also use Web Components to build the Material UI elements.
+- **AngularJS 1.3.20** doesn't support `ng-prop-*` and `ng-on-*` which are great syntactic sugar for Web Components.
 - For some really weird reason, this doesn't work on iPad Air 2 running iOS 11.2.6. Other iOS versions are fine.
-- AngularJS 1.3.20 doesn't support `ng-prop-*` and `ng-on-*` which are great syntactic sugar for Web Components.
