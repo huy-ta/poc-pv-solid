@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
-  <script type="module" src="lib/s-hello.js"></script>
-  <script type="module" src="lib/s-infinite-events.js"></script>
+  <script src="lib/s-infinite-events.js"></script>
 
   <style>
     body {
@@ -20,9 +19,13 @@
     }
 
     #infinite {
+      font-size: 13px;
+      color: #333;
       display: flex;
       width: calc(100vw - 20px);
       height: calc(100vh - 20px);
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     #infinite .loading {
@@ -38,7 +41,7 @@
   <div id="infinite">
     <s-infinite-events>
       <div class="loading" slot="loading">
-        <img src="/images/material-loader.svg" width="48px" height="48px" />
+        Loading...
       </div>
     </s-infinite-events>
   </div>
@@ -95,9 +98,9 @@
 
       infiniteWC.isloading = true;
 
-      var endpointString = `http://localhost:20597/events?offset=${offset}&limit=${limit}`;
+      var endpointString = `http://192.168.2.104:20597/events?offset=${offset}&limit=${limit}`;
 
-      if (filter) endpointString = `http://localhost:20597/events?query=${filter}&offset=${offset}&limit=${limit}`;
+      if (filter) endpointString = `http://192.168.2.104:20597/events?query=${filter}&offset=${offset}&limit=${limit}`;
 
       fetch(endpointString)
         .then(response => response.json())

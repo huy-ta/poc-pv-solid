@@ -10,10 +10,11 @@
     "start": "serve public"
   },
   "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.2.10",
     "babel-plugin-jsx-dom-expressions": "^0.10.0",
+    "infinite-scroll-wc": "^1.0.5",
     "solid-element": "^0.5.1",
-    "solid-js": "^0.8.6",
-    "infinite-scroll-wc": "^1.0.0"
+    "solid-js": "^0.8.6"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
