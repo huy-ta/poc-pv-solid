@@ -16,7 +16,7 @@ export default {
     format: 'esm'
   },
   plugins: [
-    resolve({ browser: true }),
+    resolve(),
     commonjs(),
     babel({
       exclude: 'node_modules/**',

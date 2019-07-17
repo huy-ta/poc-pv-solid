@@ -124,7 +124,6 @@ hostElement.dispatchEvent(new CustomEvent('filter', { detail: { value } }));
 - **Bundle size**: The SolidJS core library _and_ `solid-element` weigh about 15.7kB minified, and 6.3kB minified & gzipped. The component itself weighs about 6.6kB minified and 2.7kb minified & gzipped.
 - **Styling**: There are some problems regarding using Web Components in a (UI) Design System. For example, how do you build a WC using SolidJS and you need to use a Material Button inside it? This can't be solved unless you also use Web Components to build the Material UI elements.
 - **AngularJS 1.3.20** doesn't support `ng-prop-*` and `ng-on-*` which are great syntactic sugar for Web Components.
-- For some really weird reason, this doesn't work on iPad Air 2 running iOS 11.2.6. Other iOS versions are fine.
 
 ## How to run this POC?
 
@@ -134,7 +133,7 @@ To run this POC, follow these steps:
 
 ```
 cd event-generator
-npm install
+npm install 
 npm run dev
 ```
 
@@ -169,4 +168,3 @@ The build results will be in the `public/lib` folder.
 ## Notes
 
 - Please share your thoughts and when agreed upon, I'll update them here so that everyone can see.
-
